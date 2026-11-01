@@ -1,0 +1,633 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pocket Waffle | Admin</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+:root {
+
+  --cream:#fff8ed; --brown:#40251d; --orange:#e98735;
+
+  --light:#f5e8d7; --white:#fff; --muted:#907d70;
+
+}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--cream);color:var(--brown);
+
+font-family:Arial,sans-serif}
+
+header{background:var(--brown);color:white;padding:20px;
+
+display:flex;justify-content:space-between;align-items:center}
+
+.brand{font-size:21px;font-weight:900}
+
+.brand span{color:#ffbd78}
+
+button{border:0;border-radius:12px;padding:12px 16px;
+
+font-weight:700;cursor:pointer;background:var(--orange);color:white}
+
+button.secondary{background:var(--light);color:var(--brown)}
+
+button.danger{background:#a83e31}
+
+button:disabled{opacity:.5;cursor:not-allowed}
+
+main{max-width:1100px;margin:25px auto;padding:0 16px}
+
+.panel{background:white;border:1px solid #efdfcc;border-radius:20px;
+
+padding:22px;margin-bottom:20px;box-shadow:0 8px 25px #40251d0b}
+
+h1{font-size:27px;margin:0 0 8px}
+
+h2{font-size:19px;margin:0 0 16px}
+
+p{color:var(--muted)}
+
+input,select,textarea{width:100%;padding:13px;margin:7px 0 14px;
+
+border:1px solid #e7d7c5;border-radius:11px;background:#fffdf9;
+
+font-size:15px;color:var(--brown)}
+
+label{font-size:13px;font-weight:700}
+
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.item{display:flex;justify-content:space-between;align-items:center;
+
+gap:15px;padding:14px 0;border-bottom:1px solid #f0e5d9}
+
+.item:last-child{border:0}
+
+.item strong{display:block;margin-bottom:5px}
+
+.item small{color:var(--muted)}
+
+.price{font-weight:900;white-space:nowrap}
+
+.hidden{display:none!important}
+
+#message{padding:12px;border-radius:10px;margin:12px 0;
+
+background:#f5e8d7;white-space:pre-wrap}
+
+#message:empty{display:none}
+
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+
+.tabs button.active{background:var(--brown);color:white}
+
+.login{max-width:420px;margin:65px auto}
+
+@media(max-width:600px){
+
+ .grid{grid-template-columns:1fr}
+
+ header{padding:16px}
+
+ .item{align-items:flex-start}
+
+ main{margin-top:16px}
+
+ .panel{padding:17px}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+  <div class="brand">🧇 POCKET <span>WAFFLE</span></div>
+
+  <button id="logout" class="secondary hidden">Logout</button>
+
+</header>
+
+<main>
+
+  <div id="message"></div>
+
+  <section id="loginBox" class="panel login">
+
+    <h1>Owner Login 🔐</h1>
+
+    <p>Authorized cafe owner access only.</p>
+
+    <form id="loginForm">
+
+      <label>Email</label>
+
+      <input id="email" type="email" required placeholder="Owner email">
+
+      <label>Password</label>
+
+      <input id="password" type="password" required placeholder="Password">
+
+      <button type="submit" style="width:100%">Secure Login</button>
+
+    </form>
+
+  </section>
+
+  <section id="dashboard" class="hidden">
+
+    <div class="panel">
+
+      <h1>Welcome to Dashboard 👋</h1>
+
+      <p>Manage your Pocket Waffle menu.</p>
+
+      <div class="tabs">
+
+        <button class="active" data-tab="products">Products</button>
+
+        <button class="secondary" data-tab="categories">Categories</button>
+
+      </div>
+
+    </div>
+
+    <section id="products">
+
+      <div class="panel">
+
+        <h2 id="formTitle">Add New Product</h2>
+
+        <form id="productForm">
+
+          <input type="hidden" id="productId">
+
+          <label>Product name</label>
+
+          <input id="productName" required placeholder="Example: Dark Chocolate Waffle">
+
+          <label>Category</label>
+
+          <select id="productCategory" required></select>
+
+          <label>Price (₹)</label>
+
+          <input id="productPrice" type="number" min="0" step="0.01" required placeholder="120">
+
+          <label>Description</label>
+
+          <textarea id="productDescription" rows="2" placeholder="Product description"></textarea>
+
+          <label>Product image URL (optional)</label>
+
+          <input id="productImage" type="url" placeholder="https://...">
+
+          <label>
+
+            <input id="productAvailable" type="checkbox" checked
+
+            style="width:auto;margin-right:7px"> Available for customers
+
+          </label>
+
+          <div class="actions">
+
+            <button type="submit">Save Product</button>
+
+            <button type="button" class="secondary" id="cancelEdit">Clear</button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+      <div class="panel">
+
+        <h2>All Products</h2>
+
+        <input id="search" placeholder="Search products...">
+
+        <div id="productList">Loading products...</div>
+
+      </div>
+
+    </section>
+
+    <section id="categories" class="hidden">
+
+      <div class="panel">
+
+        <h2>Manage Categories</h2>
+
+        <form id="categoryForm">
+
+          <input id="categoryName" required placeholder="New category name">
+
+          <button type="submit">Add Category</button>
+
+        </form>
+
+        <div id="categoryList"></div>
+
+      </div>
+
+    </section>
+
+  </section>
+
+</main>
+
+<script>
+
+const SUPABASE_URL = "https://wufdshumwrkdtgncsmpm.supabase.co/rest/v1/";
+
+const SUPABASE_KEY = "sb_publishable_y41lr9xEl9zyl-B7EBWdZqA_iybBlvOF";
+
+const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const $ = id => document.getElementById(id);
+
+function message(text) {
+
+  $("message").textContent = text || "";
+
+}
+
+function showLogin() {
+
+  $("loginBox").classList.remove("hidden");
+
+  $("dashboard").classList.add("hidden");
+
+  $("logout").classList.add("hidden");
+
+}
+
+function showDashboard() {
+
+  $("loginBox").classList.add("hidden");
+
+  $("dashboard").classList.remove("hidden");
+
+  $("logout").classList.remove("hidden");
+
+}
+
+async function checkOwner() {
+
+  const {data:{session}} = await client.auth.getSession();
+
+  if (!session) { showLogin(); return; }
+
+  const {data,error} = await client.rpc("is_admin");
+
+  if (error || data !== true) {
+
+    await client.auth.signOut();
+
+    showLogin();
+
+    message("This account is not authorized as the cafe owner.");
+
+    return;
+
+  }
+
+  showDashboard();
+
+  await loadCategories();
+
+  await loadProducts();
+
+}
+
+$("loginForm").addEventListener("submit", async e => {
+
+  e.preventDefault();
+
+  message("Signing in...");
+
+  const {error} = await client.auth.signInWithPassword({
+
+    email:$("email").value.trim(),
+
+    password:$("password").value
+
+  });
+
+  if(error){message(error.message);return;}
+
+  await checkOwner();
+
+});
+
+$("logout").addEventListener("click", async () => {
+
+  await client.auth.signOut();
+
+  showLogin();
+
+  message("Logged out.");
+
+});
+
+let categories = [];
+
+let products = [];
+
+async function loadCategories() {
+
+  const {data,error} = await client.from("categories")
+
+    .select("*").order("sort_order");
+
+  if(error){message(error.message);return;}
+
+  categories = data || [];
+
+  $("productCategory").innerHTML = categories.map(c =>
+
+    `<option value="${c.id}">${escapeHTML(c.name)}</option>`
+
+  ).join("");
+
+  $("categoryList").innerHTML = categories.map(c => `
+
+    <div class="item">
+
+      <strong>${escapeHTML(c.name)}</strong>
+
+      <button class="danger" onclick="deleteCategory(${c.id})">Delete</button>
+
+    </div>`).join("") || "<p>No categories yet.</p>";
+
+}
+
+async function loadProducts() {
+
+  const {data,error} = await client.from("menu_items")
+
+    .select("*,categories(name)")
+
+    .order("sort_order");
+
+  if(error){message(error.message);return;}
+
+  products = data || [];
+
+  renderProducts();
+
+}
+
+function escapeHTML(value) {
+
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+
+  })[c]);
+
+}
+
+function renderProducts() {
+
+  const term = $("search").value.toLowerCase();
+
+  const filtered = products.filter(p =>
+
+    p.name.toLowerCase().includes(term) ||
+
+    (p.categories?.name || "").toLowerCase().includes(term)
+
+  );
+
+  $("productList").innerHTML = filtered.map(p => `
+
+    <div class="item">
+
+      <div>
+
+        <strong>${escapeHTML(p.name)}</strong>
+
+        <small>${escapeHTML(p.categories?.name || "No category")} ·
+
+        ${p.is_available ? "Available" : "Sold out"}</small>
+
+        <div class="price">₹${p.price}</div>
+
+      </div>
+
+      <div class="actions">
+
+        <button class="secondary" onclick="editProduct(${p.id})">Edit</button>
+
+        <button class="secondary" onclick="toggleProduct(${p.id},${!p.is_available})">
+
+          ${p.is_available ? "Sold out" : "Available"}
+
+        </button>
+
+        <button class="danger" onclick="deleteProduct(${p.id})">Delete</button>
+
+      </div>
+
+    </div>`).join("") || "<p>No products found.</p>";
+
+}
+
+$("search").addEventListener("input", renderProducts);
+
+$("productForm").addEventListener("submit", async e => {
+
+  e.preventDefault();
+
+  const id = $("productId").value;
+
+  const item = {
+
+    name:$("productName").value.trim(),
+
+    category_id:Number($("productCategory").value),
+
+    price:Number($("productPrice").value),
+
+    description:$("productDescription").value.trim(),
+
+    image_url:$("productImage").value.trim() || null,
+
+    is_available:$("productAvailable").checked
+
+  };
+
+  const result = id
+
+    ? await client.from("menu_items").update(item).eq("id",id)
+
+    : await client.from("menu_items").insert(item);
+
+  if(result.error){message(result.error.message);return;}
+
+  clearProductForm();
+
+  message("Product saved successfully.");
+
+  await loadProducts();
+
+});
+
+function editProduct(id) {
+
+  const p = products.find(x => x.id === id);
+
+  if(!p)return;
+
+  $("productId").value = p.id;
+
+  $("productName").value = p.name;
+
+  $("productCategory").value = p.category_id || "";
+
+  $("productPrice").value = p.price;
+
+  $("productDescription").value = p.description || "";
+
+  $("productImage").value = p.image_url || "";
+
+  $("productAvailable").checked = p.is_available;
+
+  $("formTitle").textContent = "Edit Product";
+
+  window.scrollTo({top:0,behavior:"smooth"});
+
+}
+
+function clearProductForm() {
+
+  $("productForm").reset();
+
+  $("productId").value = "";
+
+  $("productAvailable").checked = true;
+
+  $("formTitle").textContent = "Add New Product";
+
+}
+
+$("cancelEdit").addEventListener("click",clearProductForm);
+
+async function toggleProduct(id,available) {
+
+  const {error} = await client.from("menu_items")
+
+    .update({is_available:available}).eq("id",id);
+
+  if(error){message(error.message);return;}
+
+  await loadProducts();
+
+}
+
+async function deleteProduct(id) {
+
+  if(!confirm("Delete this product permanently?"))return;
+
+  const {error} = await client.from("menu_items").delete().eq("id",id);
+
+  if(error){message(error.message);return;}
+
+  message("Product deleted.");
+
+  await loadProducts();
+
+}
+
+$("categoryForm").addEventListener("submit",async e => {
+
+  e.preventDefault();
+
+  const name = $("categoryName").value.trim();
+
+  const {error} = await client.from("categories").insert({name});
+
+  if(error){message(error.message);return;}
+
+  $("categoryName").value = "";
+
+  message("Category added.");
+
+  await loadCategories();
+
+});
+
+async function deleteCategory(id) {
+
+  if(!confirm("Delete this category? Products will remain uncategorized."))return;
+
+  const {error} = await client.from("categories").delete().eq("id",id);
+
+  if(error){message(error.message);return;}
+
+  message("Category deleted.");
+
+  await loadCategories();
+
+  await loadProducts();
+
+}
+
+document.querySelectorAll("[data-tab]").forEach(btn => {
+
+  btn.addEventListener("click",() => {
+
+    document.querySelectorAll("[data-tab]").forEach(b => {
+
+      b.classList.remove("active");
+
+      b.classList.add("secondary");
+
+    });
+
+    btn.classList.add("active");
+
+    btn.classList.remove("secondary");
+
+    $("products").classList.toggle("hidden",btn.dataset.tab !== "products");
+
+    $("categories").classList.toggle("hidden",btn.dataset.tab !== "categories");
+
+  });
+
+});
+
+client.auth.onAuthStateChange(() => {
+
+  setTimeout(checkOwner,0);
+
+});
+
+checkOwner();
+
+</script>
+
+</body>
+
+</html>
