@@ -16,101 +16,67 @@
 
 <style>
 
-:root {
-
-  --cream:#fff8ed; --brown:#40251d; --orange:#e98735;
-
-  --light:#f5e8d7; --white:#fff; --muted:#907d70;
-
-}
+:root{--bg:#100e0c;--panel:#1d1915;--gold:#e9ae53;--text:#fff8ed;--muted:#aaa096;--red:#e45d55}
 
 *{box-sizing:border-box}
 
-body{margin:0;background:var(--cream);color:var(--brown);
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
 
-font-family:Arial,sans-serif}
+button,input,select,textarea{font:inherit}
 
-header{background:var(--brown);color:white;padding:20px;
+button{cursor:pointer;border:0;border-radius:10px;padding:12px 16px;font-weight:700}
 
-display:flex;justify-content:space-between;align-items:center}
+.primary{background:var(--gold);color:#21170b}
 
-.brand{font-size:21px;font-weight:900}
+.secondary{background:#393027;color:white}
 
-.brand span{color:#ffbd78}
+.danger{background:#572724;color:#fff}
 
-button{border:0;border-radius:12px;padding:12px 16px;
+.wrap{max-width:1100px;margin:auto;padding:20px}
 
-font-weight:700;cursor:pointer;background:var(--orange);color:white}
+header{display:flex;align-items:center;gap:12px;margin-bottom:25px}
 
-button.secondary{background:var(--light);color:var(--brown)}
+header img{width:58px;height:58px;object-fit:contain;border-radius:12px;background:white}
 
-button.danger{background:#a83e31}
+h1{font-size:22px;margin:0}
 
-button:disabled{opacity:.5;cursor:not-allowed}
+small,.muted{color:var(--muted)}
 
-main{max-width:1100px;margin:25px auto;padding:0 16px}
+.panel{background:var(--panel);border:1px solid #393027;border-radius:16px;padding:20px;margin-bottom:18px}
 
-.panel{background:white;border:1px solid #efdfcc;border-radius:20px;
+input,select,textarea{width:100%;padding:13px;background:#110f0d;color:white;border:1px solid #514438;border-radius:9px;margin:7px 0 14px}
 
-padding:22px;margin-bottom:20px;box-shadow:0 8px 25px #40251d0b}
-
-h1{font-size:27px;margin:0 0 8px}
-
-h2{font-size:19px;margin:0 0 16px}
-
-p{color:var(--muted)}
-
-input,select,textarea{width:100%;padding:13px;margin:7px 0 14px;
-
-border:1px solid #e7d7c5;border-radius:11px;background:#fffdf9;
-
-font-size:15px;color:var(--brown)}
-
-label{font-size:13px;font-weight:700}
+label{font-size:13px;color:#d8c9b7}
 
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 
 .actions{display:flex;gap:8px;flex-wrap:wrap}
 
-.item{display:flex;justify-content:space-between;align-items:center;
+.product{display:flex;gap:13px;align-items:center;border-bottom:1px solid #393027;padding:13px 0}
 
-gap:15px;padding:14px 0;border-bottom:1px solid #f0e5d9}
+.product img{width:68px;height:68px;object-fit:cover;border-radius:10px;background:#333}
 
-.item:last-child{border:0}
+.product-info{flex:1;min-width:0}
 
-.item strong{display:block;margin-bottom:5px}
+.product-info strong{display:block;overflow-wrap:anywhere}
 
-.item small{color:var(--muted)}
-
-.price{font-weight:900;white-space:nowrap}
+.product-info small{display:block;margin-top:5px}
 
 .hidden{display:none!important}
 
-#message{padding:12px;border-radius:10px;margin:12px 0;
+#message{padding:12px;border-radius:9px;margin:12px 0;display:none;white-space:pre-wrap}
 
-background:#f5e8d7;white-space:pre-wrap}
+#message.ok{display:block;background:#173c2a;color:#b9f4cf}
 
-#message:empty{display:none}
+#message.err{display:block;background:#4b2421;color:#ffd0c9}
 
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.preview{width:100px;height:100px;object-fit:cover;border-radius:12px;display:none}
 
-.tabs button.active{background:var(--brown);color:white}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 
-.login{max-width:420px;margin:65px auto}
+h2{font-size:18px;margin:0 0 15px}
 
-@media(max-width:600px){
-
- .grid{grid-template-columns:1fr}
-
- header{padding:16px}
-
- .item{align-items:flex-start}
-
- main{margin-top:16px}
-
- .panel{padding:17px}
-
-}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.wrap{padding:14px}.panel{padding:15px}.product{align-items:flex-start}}
 
 </style>
 
@@ -118,279 +84,373 @@ background:#f5e8d7;white-space:pre-wrap}
 
 <body>
 
+<div class="wrap">
+
 <header>
 
-  <div class="brand">🧇 POCKET <span>WAFFLE</span></div>
+<img src="IMG_9189.jpeg" alt="Pocket Waffle logo"
 
-  <button id="logout" class="secondary hidden">Logout</button>
+onerror="this.style.display='none'">
+
+<div>
+
+<h1>POCKET WAFFLE</h1>
+
+<small>Owner Admin Dashboard</small>
+
+</div>
 
 </header>
 
-<main>
+<div id="message"></div>
 
-  <div id="message"></div>
+<section id="login" class="panel">
 
-  <section id="loginBox" class="panel login">
+<h2>Owner Login</h2>
 
-    <h1>Owner Login 🔐</h1>
+<label>Email</label>
 
-    <p>Authorized cafe owner access only.</p>
+<input id="email" type="email" placeholder="Owner email">
 
-    <form id="loginForm">
+<label>Password</label>
 
-      <label>Email</label>
+<input id="password" type="password" placeholder="Password">
 
-      <input id="email" type="email" required placeholder="Owner email">
+<button class="primary" id="loginBtn">Login securely</button>
 
-      <label>Password</label>
+<p class="muted">Only an authorized owner account can access this dashboard.</p>
 
-      <input id="password" type="password" required placeholder="Password">
+</section>
 
-      <button type="submit" style="width:100%">Secure Login</button>
+<section id="dashboard" class="hidden">
 
-    </form>
+<div class="topline panel">
 
-  </section>
+<div>
 
-  <section id="dashboard" class="hidden">
+<h2>Dashboard</h2>
 
-    <div class="panel">
+<small id="welcome">Manage your menu</small>
 
-      <h1>Welcome to Dashboard 👋</h1>
+</div>
 
-      <p>Manage your Pocket Waffle menu.</p>
+<button class="secondary" id="logoutBtn">Logout</button>
 
-      <div class="tabs">
+</div>
 
-        <button class="active" data-tab="products">Products</button>
+<div class="panel">
 
-        <button class="secondary" data-tab="categories">Categories</button>
+<h2 id="formTitle">Add New Product</h2>
 
-      </div>
+<form id="productForm">
 
-    </div>
+<input type="hidden" id="productId">
 
-    <section id="products">
+<div class="grid">
 
-      <div class="panel">
+<div>
 
-        <h2 id="formTitle">Add New Product</h2>
+<label>Product name *</label>
 
-        <form id="productForm">
+<input id="name" required maxlength="120" placeholder="Product name">
 
-          <input type="hidden" id="productId">
+</div>
 
-          <label>Product name</label>
+<div>
 
-          <input id="productName" required placeholder="Example: Dark Chocolate Waffle">
+<label>Category *</label>
 
-          <label>Category</label>
+<select id="category" required>
 
-          <select id="productCategory" required></select>
+<option value="">Select category</option>
 
-          <label>Price (₹)</label>
+</select>
 
-          <input id="productPrice" type="number" min="0" step="0.01" required placeholder="120">
+</div>
 
-          <label>Description</label>
+</div>
 
-          <textarea id="productDescription" rows="2" placeholder="Product description"></textarea>
+<div class="grid">
 
-          <label>Product image URL (optional)</label>
+<div>
 
-          <input id="productImage" type="url" placeholder="https://...">
+<label>Price (₹) *</label>
 
-          <label>
+<input id="price" type="number" min="0" step="0.01" required placeholder="Price">
 
-            <input id="productAvailable" type="checkbox" checked
+</div>
 
-            style="width:auto;margin-right:7px"> Available for customers
+<div>
 
-          </label>
+<label>Display order</label>
 
-          <div class="actions">
+<input id="sortOrder" type="number" value="0">
 
-            <button type="submit">Save Product</button>
+</div>
 
-            <button type="button" class="secondary" id="cancelEdit">Clear</button>
+</div>
 
-          </div>
+<label>Description</label>
 
-        </form>
+<textarea id="description" rows="2" maxlength="500" placeholder="Short product description"></textarea>
 
-      </div>
+<label>Product photo</label>
 
-      <div class="panel">
+<input id="photo" type="file" accept="image/*">
 
-        <h2>All Products</h2>
+<img id="preview" class="preview" alt="Image preview">
 
-        <input id="search" placeholder="Search products...">
+<label style="display:flex;gap:9px;align-items:center;margin:12px 0">
 
-        <div id="productList">Loading products...</div>
+<input id="available" type="checkbox" checked style="width:auto;margin:0">
 
-      </div>
+Available for sale
 
-    </section>
+</label>
 
-    <section id="categories" class="hidden">
+<div class="actions">
 
-      <div class="panel">
+<button class="primary" type="submit" id="saveBtn">Save Product</button>
 
-        <h2>Manage Categories</h2>
+<button class="secondary" type="button" id="cancelBtn">Clear</button>
 
-        <form id="categoryForm">
+</div>
 
-          <input id="categoryName" required placeholder="New category name">
+</form>
 
-          <button type="submit">Add Category</button>
+</div>
 
-        </form>
+<div class="panel">
 
-        <div id="categoryList"></div>
+<h2>Manage Categories</h2>
 
-      </div>
+<form id="categoryForm" class="grid">
 
-    </section>
+<div>
 
-  </section>
+<label>New category name</label>
 
-</main>
+<input id="categoryName" required maxlength="80" placeholder="e.g. Waffles">
+
+</div>
+
+<div style="display:flex;align-items:end">
+
+<button class="primary" type="submit">Add Category</button>
+
+</div>
+
+</form>
+
+<div id="categoryList"></div>
+
+</div>
+
+<div class="panel">
+
+<div class="topline">
+
+<h2>Menu Products</h2>
+
+<small id="productCount">Loading...</small>
+
+</div>
+
+<input id="search" placeholder="Search products...">
+
+<div id="productList">Loading products...</div>
+
+</div>
+
+</section>
+
+</div>
 
 <script>
+
+/* Keep your existing Supabase Project URL and Publishable Key here. */
 
 const SUPABASE_URL = "https://wufdshumwrkdtgncsmpm.supabase.co/rest/v1/";
 
 const SUPABASE_KEY = "sb_publishable_y41lr9xEl9zyl-B7EBWdZqA_iybBlvOF";
 
-const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const BUCKET = "product-images";
+
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const $ = id => document.getElementById(id);
-
-function message(text) {
-
-  $("message").textContent = text || "";
-
-}
-
-function showLogin() {
-
-  $("loginBox").classList.remove("hidden");
-
-  $("dashboard").classList.add("hidden");
-
-  $("logout").classList.add("hidden");
-
-}
-
-function showDashboard() {
-
-  $("loginBox").classList.add("hidden");
-
-  $("dashboard").classList.remove("hidden");
-
-  $("logout").classList.remove("hidden");
-
-}
-
-async function checkOwner() {
-
-  const {data:{session}} = await client.auth.getSession();
-
-  if (!session) { showLogin(); return; }
-
-  const {data,error} = await client.rpc("is_admin");
-
-  if (error || data !== true) {
-
-    await client.auth.signOut();
-
-    showLogin();
-
-    message("This account is not authorized as the cafe owner.");
-
-    return;
-
-  }
-
-  showDashboard();
-
-  await loadCategories();
-
-  await loadProducts();
-
-}
-
-$("loginForm").addEventListener("submit", async e => {
-
-  e.preventDefault();
-
-  message("Signing in...");
-
-  const {error} = await client.auth.signInWithPassword({
-
-    email:$("email").value.trim(),
-
-    password:$("password").value
-
-  });
-
-  if(error){message(error.message);return;}
-
-  await checkOwner();
-
-});
-
-$("logout").addEventListener("click", async () => {
-
-  await client.auth.signOut();
-
-  showLogin();
-
-  message("Logged out.");
-
-});
 
 let categories = [];
 
 let products = [];
 
+function message(text, type="ok") {
+
+  $("message").textContent = text;
+
+  $("message").className = type;
+
+  $("message").style.display = "block";
+
+  window.scrollTo({top:0,behavior:"smooth"});
+
+}
+
+function clearMessage() {
+
+  $("message").style.display = "none";
+
+}
+
+function escapeHTML(value="") {
+
+  return String(value).replace(/[&<>"']/g, c => ({
+
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+
+  }[c]));
+
+}
+
+function money(value) {
+
+  return "₹" + Number(value || 0).toLocaleString("en-IN");
+
+}
+
+async function verifyAdmin() {
+
+  const {data:{session}} = await db.auth.getSession();
+
+  if (!session) {
+
+    $("login").classList.remove("hidden");
+
+    $("dashboard").classList.add("hidden");
+
+    return false;
+
+  }
+
+  const {data,error} = await db.rpc("is_admin");
+
+  if (error || data !== true) {
+
+    await db.auth.signOut();
+
+    $("login").classList.remove("hidden");
+
+    $("dashboard").classList.add("hidden");
+
+    message("This account is not authorized as an admin.", "err");
+
+    return false;
+
+  }
+
+  $("login").classList.add("hidden");
+
+  $("dashboard").classList.remove("hidden");
+
+  $("welcome").textContent = session.user.email;
+
+  await loadAll();
+
+  return true;
+
+}
+
+$("loginBtn").addEventListener("click", async () => {
+
+  clearMessage();
+
+  const email = $("email").value.trim();
+
+  const password = $("password").value;
+
+  if (!email || !password) return message("Enter email and password.", "err");
+
+  $("loginBtn").disabled = true;
+
+  $("loginBtn").textContent = "Logging in...";
+
+  const {error} = await db.auth.signInWithPassword({email,password});
+
+  $("loginBtn").disabled = false;
+
+  $("loginBtn").textContent = "Login securely";
+
+  if (error) return message(error.message, "err");
+
+  await verifyAdmin();
+
+});
+
+$("logoutBtn").addEventListener("click", async () => {
+
+  await db.auth.signOut();
+
+  $("dashboard").classList.add("hidden");
+
+  $("login").classList.remove("hidden");
+
+  message("You have been logged out.");
+
+});
+
+db.auth.onAuthStateChange((_event, session) => {
+
+  if (!session) {
+
+    $("dashboard").classList.add("hidden");
+
+    $("login").classList.remove("hidden");
+
+  }
+
+});
+
+async function loadAll() {
+
+  await Promise.all([loadCategories(),loadProducts()]);
+
+}
+
 async function loadCategories() {
 
-  const {data,error} = await client.from("categories")
+  const {data,error} = await db.from("categories")
 
-    .select("*").order("sort_order");
+    .select("*").order("sort_order").order("name");
 
-  if(error){message(error.message);return;}
+  if (error) return message("Categories: " + error.message,"err");
 
   categories = data || [];
 
-  $("productCategory").innerHTML = categories.map(c =>
+  $("category").innerHTML = '<option value="">Select category</option>' +
 
-    `<option value="${c.id}">${escapeHTML(c.name)}</option>`
-
-  ).join("");
+    categories.map(c => `<option value="${c.id}">${escapeHTML(c.name)}</option>`).join("");
 
   $("categoryList").innerHTML = categories.map(c => `
 
-    <div class="item">
+    <div class="product">
 
-      <strong>${escapeHTML(c.name)}</strong>
+      <div class="product-info"><strong>${escapeHTML(c.name)}</strong></div>
 
-      <button class="danger" onclick="deleteCategory(${c.id})">Delete</button>
+      <button class="danger" onclick="deleteCategory('${c.id}')">Delete</button>
 
-    </div>`).join("") || "<p>No categories yet.</p>";
+    </div>`).join("") || '<small>No categories yet.</small>';
 
 }
 
 async function loadProducts() {
 
-  const {data,error} = await client.from("menu_items")
+  const {data,error} = await db.from("menu_items")
 
-    .select("*,categories(name)")
+    .select("*, categories(name)")
 
-    .order("sort_order");
+    .order("sort_order").order("name");
 
-  if(error){message(error.message);return;}
+  if (error) return message("Products: " + error.message,"err");
 
   products = data || [];
 
@@ -398,167 +458,51 @@ async function loadProducts() {
 
 }
 
-function escapeHTML(value) {
-
-  return String(value ?? "").replace(/[&<>"']/g, c => ({
-
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-
-  })[c]);
-
-}
-
 function renderProducts() {
 
-  const term = $("search").value.toLowerCase();
+  const q = $("search").value.toLowerCase().trim();
 
   const filtered = products.filter(p =>
 
-    p.name.toLowerCase().includes(term) ||
+    (p.name || "").toLowerCase().includes(q) ||
 
-    (p.categories?.name || "").toLowerCase().includes(term)
+    (p.categories?.name || "").toLowerCase().includes(q)
 
   );
 
+  $("productCount").textContent = `${filtered.length} products`;
+
   $("productList").innerHTML = filtered.map(p => `
 
-    <div class="item">
+    <div class="product">
 
-      <div>
+      ${p.image_url ? `<img src="${escapeHTML(p.image_url)}" alt="">` : `<img alt="No image">`}
+
+      <div class="product-info">
 
         <strong>${escapeHTML(p.name)}</strong>
 
-        <small>${escapeHTML(p.categories?.name || "No category")} ·
+        <small>${escapeHTML(p.categories?.name || "No category")} · ${money(p.price)}</small>
 
-        ${p.is_available ? "Available" : "Sold out"}</small>
-
-        <div class="price">₹${p.price}</div>
+        <small>${p.is_available ? "Available" : "Sold out"}</small>
 
       </div>
 
       <div class="actions">
 
-        <button class="secondary" onclick="editProduct(${p.id})">Edit</button>
+        <button class="secondary" onclick="editProduct('${p.id}')">Edit</button>
 
-        <button class="secondary" onclick="toggleProduct(${p.id},${!p.is_available})">
+        <button class="secondary" onclick="toggleAvailability('${p.id}',${!p.is_available})">${p.is_available ? "Sold out" : "Available"}</button>
 
-          ${p.is_available ? "Sold out" : "Available"}
-
-        </button>
-
-        <button class="danger" onclick="deleteProduct(${p.id})">Delete</button>
+        <button class="danger" onclick="deleteProduct('${p.id}')">Delete</button>
 
       </div>
 
-    </div>`).join("") || "<p>No products found.</p>";
+    </div>`).join("") || '<small>No products found.</small>';
 
 }
 
-$("search").addEventListener("input", renderProducts);
-
-$("productForm").addEventListener("submit", async e => {
-
-  e.preventDefault();
-
-  const id = $("productId").value;
-
-  const item = {
-
-    name:$("productName").value.trim(),
-
-    category_id:Number($("productCategory").value),
-
-    price:Number($("productPrice").value),
-
-    description:$("productDescription").value.trim(),
-
-    image_url:$("productImage").value.trim() || null,
-
-    is_available:$("productAvailable").checked
-
-  };
-
-  const result = id
-
-    ? await client.from("menu_items").update(item).eq("id",id)
-
-    : await client.from("menu_items").insert(item);
-
-  if(result.error){message(result.error.message);return;}
-
-  clearProductForm();
-
-  message("Product saved successfully.");
-
-  await loadProducts();
-
-});
-
-function editProduct(id) {
-
-  const p = products.find(x => x.id === id);
-
-  if(!p)return;
-
-  $("productId").value = p.id;
-
-  $("productName").value = p.name;
-
-  $("productCategory").value = p.category_id || "";
-
-  $("productPrice").value = p.price;
-
-  $("productDescription").value = p.description || "";
-
-  $("productImage").value = p.image_url || "";
-
-  $("productAvailable").checked = p.is_available;
-
-  $("formTitle").textContent = "Edit Product";
-
-  window.scrollTo({top:0,behavior:"smooth"});
-
-}
-
-function clearProductForm() {
-
-  $("productForm").reset();
-
-  $("productId").value = "";
-
-  $("productAvailable").checked = true;
-
-  $("formTitle").textContent = "Add New Product";
-
-}
-
-$("cancelEdit").addEventListener("click",clearProductForm);
-
-async function toggleProduct(id,available) {
-
-  const {error} = await client.from("menu_items")
-
-    .update({is_available:available}).eq("id",id);
-
-  if(error){message(error.message);return;}
-
-  await loadProducts();
-
-}
-
-async function deleteProduct(id) {
-
-  if(!confirm("Delete this product permanently?"))return;
-
-  const {error} = await client.from("menu_items").delete().eq("id",id);
-
-  if(error){message(error.message);return;}
-
-  message("Product deleted.");
-
-  await loadProducts();
-
-}
+$("search").addEventListener("input",renderProducts);
 
 $("categoryForm").addEventListener("submit",async e => {
 
@@ -566,9 +510,11 @@ $("categoryForm").addEventListener("submit",async e => {
 
   const name = $("categoryName").value.trim();
 
-  const {error} = await client.from("categories").insert({name});
+  if (!name) return;
 
-  if(error){message(error.message);return;}
+  const {error} = await db.from("categories").insert({name,sort_order:categories.length});
+
+  if (error) return message(error.message,"err");
 
   $("categoryName").value = "";
 
@@ -580,11 +526,11 @@ $("categoryForm").addEventListener("submit",async e => {
 
 async function deleteCategory(id) {
 
-  if(!confirm("Delete this category? Products will remain uncategorized."))return;
+  if (!confirm("Delete this category? Categories assigned to products may be protected by the database.")) return;
 
-  const {error} = await client.from("categories").delete().eq("id",id);
+  const {error} = await db.from("categories").delete().eq("id",id);
 
-  if(error){message(error.message);return;}
+  if (error) return message(error.message,"err");
 
   message("Category deleted.");
 
@@ -594,37 +540,211 @@ async function deleteCategory(id) {
 
 }
 
-document.querySelectorAll("[data-tab]").forEach(btn => {
+$("photo").addEventListener("change",() => {
 
-  btn.addEventListener("click",() => {
+  const file = $("photo").files[0];
 
-    document.querySelectorAll("[data-tab]").forEach(b => {
+  if (!file) return;
 
-      b.classList.remove("active");
+  if (!file.type.startsWith("image/")) {
 
-      b.classList.add("secondary");
+    $("photo").value = "";
 
-    });
+    return message("Please choose an image file.","err");
 
-    btn.classList.add("active");
+  }
 
-    btn.classList.remove("secondary");
+  if (file.size > 5*1024*1024) {
 
-    $("products").classList.toggle("hidden",btn.dataset.tab !== "products");
+    $("photo").value = "";
 
-    $("categories").classList.toggle("hidden",btn.dataset.tab !== "categories");
+    return message("Image must be smaller than 5 MB.","err");
+
+  }
+
+  $("preview").src = URL.createObjectURL(file);
+
+  $("preview").style.display = "block";
+
+});
+
+async function uploadPhoto(file) {
+
+  const ext = (file.name.split(".").pop() || "jpg").replace(/[^a-zA-Z0-9]/g,"");
+
+  const path = `${crypto.randomUUID()}.${ext}`;
+
+  const {error} = await db.storage.from(BUCKET).upload(path,file,{
+
+    cacheControl:"3600",upsert:false,contentType:file.type
 
   });
 
+  if (error) throw error;
+
+  const {data} = db.storage.from(BUCKET).getPublicUrl(path);
+
+  return data.publicUrl;
+
+}
+
+$("productForm").addEventListener("submit",async e => {
+
+  e.preventDefault();
+
+  clearMessage();
+
+  const id = $("productId").value;
+
+  const file = $("photo").files[0];
+
+  $("saveBtn").disabled = true;
+
+  $("saveBtn").textContent = "Saving...";
+
+  try {
+
+    let image_url = id ? products.find(p => p.id === id)?.image_url || null : null;
+
+    if (file) image_url = await uploadPhoto(file);
+
+    const item = {
+
+      name:$("name").value.trim(),
+
+      category_id:$("category").value,
+
+      price:Number($("price").value),
+
+      description:$("description").value.trim(),
+
+      image_url,
+
+      is_available:$("available").checked,
+
+      sort_order:Number($("sortOrder").value || 0)
+
+    };
+
+    if (!item.name || !item.category_id || !Number.isFinite(item.price) || item.price < 0) {
+
+      throw new Error("Enter a valid name, category and price.");
+
+    }
+
+    const result = id
+
+      ? await db.from("menu_items").update(item).eq("id",id)
+
+      : await db.from("menu_items").insert(item);
+
+    if (result.error) throw result.error;
+
+    resetForm();
+
+    message(id ? "Product updated." : "Product added.");
+
+    await loadProducts();
+
+  } catch(err) {
+
+    message(err.message || "Could not save product.","err");
+
+  } finally {
+
+    $("saveBtn").disabled = false;
+
+    $("saveBtn").textContent = "Save Product";
+
+  }
+
 });
 
-client.auth.onAuthStateChange(() => {
+function editProduct(id) {
 
-  setTimeout(checkOwner,0);
+  const p = products.find(x => x.id === id);
 
-});
+  if (!p) return;
 
-checkOwner();
+  $("productId").value = p.id;
+
+  $("name").value = p.name || "";
+
+  $("category").value = p.category_id || "";
+
+  $("price").value = p.price;
+
+  $("description").value = p.description || "";
+
+  $("sortOrder").value = p.sort_order || 0;
+
+  $("available").checked = !!p.is_available;
+
+  $("preview").src = p.image_url || "";
+
+  $("preview").style.display = p.image_url ? "block" : "none";
+
+  $("photo").value = "";
+
+  $("formTitle").textContent = "Edit Product";
+
+  $("saveBtn").textContent = "Update Product";
+
+  window.scrollTo({top:0,behavior:"smooth"});
+
+}
+
+function resetForm() {
+
+  $("productForm").reset();
+
+  $("productId").value = "";
+
+  $("available").checked = true;
+
+  $("sortOrder").value = 0;
+
+  $("preview").style.display = "none";
+
+  $("preview").src = "";
+
+  $("formTitle").textContent = "Add New Product";
+
+  $("saveBtn").textContent = "Save Product";
+
+}
+
+$("cancelBtn").addEventListener("click",resetForm);
+
+async function toggleAvailability(id,value) {
+
+  const {error} = await db.from("menu_items")
+
+    .update({is_available:value}).eq("id",id);
+
+  if (error) return message(error.message,"err");
+
+  message(value ? "Product marked available." : "Product marked sold out.");
+
+  await loadProducts();
+
+}
+
+async function deleteProduct(id) {
+
+  if (!confirm("Permanently delete this product?")) return;
+
+  const {error} = await db.from("menu_items").delete().eq("id",id);
+
+  if (error) return message(error.message,"err");
+
+  message("Product deleted.");
+
+  await loadProducts();
+
+}
+
+verifyAdmin();
 
 </script>
 
