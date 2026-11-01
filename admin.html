@@ -694,7 +694,36 @@ function editProduct(id) {
 
 }
 
-function resetForm() {
+async function editProduct(id) {
+  const { data, error } = await db
+    .from("menu_items")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    return message(error.message, "err");
+  }
+
+  $("productId").value = data.id;
+  $("name").value = data.name || "";
+  $("category").value = data.category_id || "";
+  $("price").value = data.price || "";
+  $("sortOrder").value = data.sort_order ?? 0;
+  $("description").value = data.description || "";
+  $("available").checked = data.is_available;
+
+  $("preview").src = data.image_url || "";
+  $("preview").style.display = data.image_url ? "block" : "none";
+
+  $("formTitle").textContent = "Edit Product";
+  $("saveBtn").textContent = "Update Product";
+
+  $("productForm").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}function resetForm() {
 
   $("productForm").reset();
 
