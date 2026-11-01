@@ -10,137 +10,167 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="theme-color" content="#fff8ed">
+<meta name="theme-color" content="#fffaf1">
 
 <title>Pocket Waffle | Barwaha</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
 
- --cream:#fff8ed;--white:#fffdf9;--brown:#43251b;
+ --cream:#fffaf1;--white:#fffefa;--brown:#3b2118;
 
- --dark:#2c1711;--orange:#ef861f;--gold:#ffb04a;
+ --brown2:#5b3325;--orange:#f28a35;--muted:#947d70;
 
- --muted:#987c6b;--line:#eadbca;
+ --shadow:0 15px 40px rgba(69,39,25,.11);
 
 }
 
-*{box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 
 html{scroll-behavior:smooth}
 
-body{margin:0;background:var(--cream);color:var(--brown);font-family:"DM Sans",sans-serif;overflow-x:hidden}
+body{background:var(--cream);color:var(--brown);font-family:'DM Sans',sans-serif;overflow-x:hidden}
 
 button,input{font:inherit}
 
 button{cursor:pointer}
 
-header{height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 6%;background:#fffdf9eF;backdrop-filter:blur(15px);position:sticky;top:0;z-index:20;border-bottom:1px solid #eadbca}
+.topbar{height:5px;background:linear-gradient(90deg,#f28a35,#ffd08a,#5b3325)}
 
-.brand{font-family:"Playfair Display",serif;font-weight:900;font-size:24px;color:var(--dark);letter-spacing:-1px}
+header{position:sticky;top:0;z-index:20;background:#fffaf1eF;backdrop-filter:blur(16px);border-bottom:1px solid #eadfd2}
 
-.brand span{color:var(--orange)}
+.nav{max-width:1150px;margin:auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 
-.location{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:1px}
+.brand{display:flex;align-items:center;gap:10px}
 
-.hero{margin:18px auto;max-width:1150px;width:calc(100% - 28px);min-height:370px;border-radius:28px;background:linear-gradient(115deg,#321a12,#60301c 60%,#a45324);position:relative;overflow:hidden;display:flex;align-items:center;padding:45px 7%;color:white;isolation:isolate}
+.brand img{width:54px;height:54px;object-fit:contain;border-radius:50%;background:white}
 
-.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;z-index:-1;filter:blur(1px)}
+.brand-name{font-family:'Playfair Display',serif;font-weight:800;font-size:21px}
 
-.hero:before{width:340px;height:340px;background:#f59a3b33;right:4%;top:-90px;animation:float 7s ease-in-out infinite}
+.brand-sub{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
 
-.hero:after{width:210px;height:210px;border:1px solid #ffcf8b55;right:20%;bottom:-120px}
+.order-btn{border:0;background:var(--brown);color:white;padding:12px 18px;border-radius:30px;font-weight:700}
 
-.hero-content{max-width:540px;position:relative;z-index:2}
+.hero{max-width:1150px;margin:auto;padding:48px 22px 34px;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:20px;min-height:390px}
 
-.eyebrow{color:#ffc17a;font-size:11px;font-weight:800;letter-spacing:4px}
+.eyebrow{display:inline-block;background:#ffead5;color:#a75319;border-radius:30px;padding:8px 14px;font-size:12px;font-weight:800;letter-spacing:1px}
 
-.hero h1{font-family:"Playfair Display",serif;font-size:clamp(42px,7vw,76px);line-height:1.02;margin:17px 0}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(42px,7vw,76px);line-height:1.02;margin:20px 0 15px}
 
-.hero h1 em{color:#ffb052;font-style:normal}
+.hero h1 span{color:var(--orange)}
 
-.hero p{color:#f4dccc;line-height:1.7;max-width:400px;font-size:14px}
+.hero p{color:var(--muted);line-height:1.7;max-width:440px}
 
-.hero-btn{display:inline-block;margin-top:17px;background:#ffad49;color:#321a12;text-decoration:none;padding:13px 22px;border-radius:30px;font-size:13px;font-weight:800;box-shadow:0 8px 25px #1c0b0755}
+.hero-actions{display:flex;gap:12px;margin-top:25px;flex-wrap:wrap}
 
-.hero-art{position:absolute;right:5%;top:50%;transform:translateY(-50%);font-size:clamp(105px,19vw,210px);filter:drop-shadow(0 18px 20px #160a0a88);animation:float 5s ease-in-out infinite}
+.primary,.secondary{padding:14px 21px;border-radius:30px;border:0;font-weight:800}
 
-.choco-dot{position:absolute;font-size:30px;animation:float 6s ease-in-out infinite;opacity:.8}
+.primary{background:var(--orange);color:white;box-shadow:0 9px 20px #f28a3540}
 
-.dot1{right:9%;top:12%}.dot2{right:38%;bottom:12%;animation-delay:1s}.dot3{right:3%;bottom:14%;animation-delay:2s}
+.secondary{background:white;color:var(--brown);border:1px solid #eadfd2}
 
-@keyframes float{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-17px) rotate(5deg)}}
+.hero-art{min-height:270px;display:grid;place-items:center;position:relative;perspective:900px}
 
-.intro{text-align:center;padding:25px 15px 12px}
+.orbit{position:absolute;width:min(290px,75vw);height:min(290px,75vw);border:1px dashed #e6b17c;border-radius:50%;animation:spin 24s linear infinite}
 
-.intro small{color:var(--orange);font-weight:800;letter-spacing:3px;font-size:10px}
+.hero-logo{width:min(235px,60vw);height:min(235px,60vw);object-fit:contain;border-radius:50%;background:white;padding:10px;box-shadow:0 25px 55px #4b291b25;animation:float 4s ease-in-out infinite;transform:rotateY(-9deg)}
 
-.intro h2{font-family:"Playfair Display",serif;font-size:clamp(27px,5vw,40px);margin:8px 0;color:var(--dark)}
+.spark{position:absolute;font-size:30px;animation:float 3s ease-in-out infinite}
 
-.intro p{color:var(--muted);font-size:13px}
+.s1{top:12%;left:10%}.s2{right:7%;top:20%;animation-delay:1s}.s3{bottom:8%;left:18%;animation-delay:1.5s}
 
-.search-wrap{max-width:570px;margin:20px auto;padding:0 15px}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-13px) rotate(3deg)}}
 
-.search{width:100%;border:1px solid var(--line);background:white;border-radius:30px;padding:15px 20px;outline:none;color:var(--brown);box-shadow:0 5px 18px #58331a0a}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-.search:focus{border-color:var(--orange);box-shadow:0 0 0 3px #ef861f20}
+.section{max-width:1150px;margin:20px auto;padding:15px 22px}
 
-.cat-wrap{position:sticky;top:69px;z-index:15;background:#fff8edf0;backdrop-filter:blur(12px);border-block:1px solid #eadbca;padding:12px 0}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:18px}
 
-.categories{display:flex;gap:9px;overflow-x:auto;padding:0 16px;scrollbar-width:none;max-width:1150px;margin:auto}
+.section-head h2{font-family:'Playfair Display',serif;font-size:30px}
+
+.section-head p{color:var(--muted);font-size:13px;margin-top:5px}
+
+.search-wrap{margin:15px 0 18px}
+
+.search{width:100%;padding:15px 18px;border:1px solid #eadfd2;background:white;border-radius:18px;outline:none;color:var(--brown)}
+
+.search:focus{border-color:var(--orange);box-shadow:0 0 0 3px #f28a3520}
+
+.categories{display:flex;gap:9px;overflow-x:auto;padding:5px 0 15px;scrollbar-width:none}
 
 .categories::-webkit-scrollbar{display:none}
 
-.cat{white-space:nowrap;background:white;border:1px solid var(--line);color:var(--brown);border-radius:30px;padding:10px 16px;font-size:12px;font-weight:800;transition:.25s}
+.cat{white-space:nowrap;border:1px solid #eadfd2;background:white;color:var(--brown2);padding:11px 16px;border-radius:30px;font-size:13px;font-weight:700}
 
-.cat.active,.cat:hover{background:var(--dark);border-color:var(--dark);color:#fff}
+.cat.active{background:var(--brown);color:white;border-color:var(--brown)}
 
-.menu{max-width:1150px;margin:auto;padding:30px 18px 65px}
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
 
-.section{margin-bottom:42px;scroll-margin-top:140px}
+.menu-card{background:white;border:1px solid #f0e5d9;border-radius:23px;padding:20px;box-shadow:0 8px 24px #4b291b09;transition:transform .35s,box-shadow .35s;transform-style:preserve-3d;animation:appear .5s both}
 
-.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:17px;border-bottom:1px solid var(--line);padding-bottom:12px}
+.menu-card:hover{transform:translateY(-7px) rotateX(3deg) rotateY(-3deg);box-shadow:var(--shadow)}
 
-.section-head h2{font-family:"Playfair Display",serif;font-size:27px;margin:0;color:var(--dark)}
+.card-emoji{height:115px;border-radius:17px;background:linear-gradient(135deg,#fff1df,#f8dfc4);display:grid;place-items:center;font-size:55px;margin-bottom:15px;transform:translateZ(12px)}
 
-.section-head span{font-size:11px;color:var(--muted);font-weight:700}
+.menu-card h3{font-size:17px;margin-bottom:7px}
 
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.menu-card p{font-size:12px;color:var(--muted);line-height:1.5;min-height:35px}
 
-.card{background:white;border:1px solid #eee0d0;border-radius:17px;padding:16px;min-height:102px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 5px 16px #44251908;transition:transform .25s,box-shadow .25s;animation:rise .45s both}
+.card-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:16px}
 
-.card:hover{transform:translateY(-5px);box-shadow:0 13px 28px #44251914}
+.price{font-weight:800;color:#a75319;font-size:15px}
 
-@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.add{border:0;background:var(--brown);color:white;border-radius:30px;padding:9px 14px;font-size:12px;font-weight:800}
 
-.card h3{font-size:13px;line-height:1.4;margin:0 0 15px;font-weight:700;color:var(--dark)}
+.note{background:#fff0dd;border-radius:20px;padding:20px;margin-top:22px;color:#805039;font-size:13px;line-height:1.6}
 
-.card-bottom{display:flex;justify-content:space-between;align-items:center;gap:6px}
+footer{margin-top:50px;background:var(--brown);color:#fff5e9;padding:35px 22px;text-align:center}
 
-.price{font-size:16px;font-weight:900;color:#d96d17}
+footer img{width:65px;height:65px;object-fit:contain;background:white;border-radius:50%;padding:4px;margin-bottom:10px}
 
-.tag{font-size:9px;letter-spacing:.5px;background:#fff0dc;color:#a95714;border-radius:20px;padding:5px 8px;font-weight:800}
+footer p{color:#d7bca9;font-size:12px;margin-top:8px}
 
-.empty{text-align:center;padding:40px;color:var(--muted);grid-column:1/-1}
+.float-wa{position:fixed;right:18px;bottom:18px;background:#20b95a;color:white;text-decoration:none;border-radius:50px;padding:15px 19px;font-weight:800;box-shadow:0 8px 25px #0002;z-index:30}
 
-footer{background:var(--dark);color:#f9e5d3;text-align:center;padding:35px 15px}
+.empty{grid-column:1/-1;text-align:center;padding:35px;color:var(--muted)}
 
-.footer-brand{font-family:"Playfair Display",serif;font-size:27px;font-weight:900}
+@keyframes appear{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
 
-.footer-brand span{color:#ffab47}
+@media(max-width:760px){
 
-footer p{font-size:12px;color:#c8a995}
+ .hero{grid-template-columns:1fr;text-align:center;padding-top:35px;gap:0}
 
-.top-btn{position:fixed;right:17px;bottom:20px;background:var(--orange);color:#2c1711;border:0;border-radius:50%;width:43px;height:43px;font-size:20px;box-shadow:0 5px 15px #0002;z-index:10}
+ .hero p{margin:auto}.hero-actions{justify-content:center}
 
-@media(min-width:650px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{min-height:420px}.menu{padding-inline:30px}}
+ .hero-art{min-height:260px;grid-row:1}
 
-@media(max-width:420px){.hero{min-height:330px;padding:30px 24px}.hero-art{right:-3%;top:72%;opacity:.38}.hero-content{max-width:100%}.hero h1{font-size:48px}.grid{gap:10px}.card{padding:13px}.card h3{font-size:12px}}
+ .hero h1{font-size:51px}
+
+ .menu-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+
+ .menu-card{padding:12px;border-radius:18px}
+
+ .card-emoji{height:95px;font-size:43px}
+
+ .menu-card h3{font-size:14px}
+
+ .menu-card p{font-size:11px}
+
+ .add{padding:8px 10px}
+
+ .price{font-size:13px}
+
+ .section-head h2{font-size:25px}
+
+}
+
+@media(max-width:370px){.menu-grid{grid-template-columns:1fr}}
 
 </style>
 
@@ -148,339 +178,211 @@ footer p{font-size:12px;color:#c8a995}
 
 <body>
 
+<div class="topbar"></div>
+
 <header>
 
- <div class="brand">Pocket <span>Waffle.</span></div>
+ <nav class="nav">
 
- <div class="location">📍 BARWAHA</div>
+  <div class="brand">
+
+   <img src="IMG_9189.jpeg" alt="Pocket Waffle logo">
+
+   <div><div class="brand-name">Pocket Waffle</div><div class="brand-sub">Barwaha</div></div>
+
+  </div>
+
+  <button class="order-btn" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Explore Menu ↗</button>
+
+ </nav>
 
 </header>
 
+<main>
+
 <section class="hero">
 
- <div class="hero-content">
+ <div>
 
-  <div class="eyebrow">A LITTLE BITE OF HAPPINESS</div>
+  <span class="eyebrow">♡ MADE WITH LOVE</span>
 
-  <h1>Life is better<br>with <em>waffles.</em></h1>
+  <h1>A little bite<br>of <span>happiness.</span></h1>
 
-  <p>Chocolate cravings, sweet moments and delicious treats. Find your favourite bite at Pocket Waffle.</p>
+  <p>Delicious waffles, dreamy desserts and your favourite bites. Find your next craving at Pocket Waffle, Barwaha.</p>
 
-  <a class="hero-btn" href="#menu">EXPLORE THE MENU ↓</a>
+  <div class="hero-actions">
+
+   <button class="primary" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Explore Menu ↓</button>
+
+   <button class="secondary" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">Our Categories</button>
+
+  </div>
 
  </div>
 
- <div class="hero-art">🧇</div>
+ <div class="hero-art">
 
- <div class="choco-dot dot1">🍫</div>
+  <div class="orbit"></div>
 
- <div class="choco-dot dot2">🍓</div>
+  <span class="spark s1">🍓</span><span class="spark s2">🍫</span><span class="spark s3">✨</span>
 
- <div class="choco-dot dot3">✨</div>
+  <img class="hero-logo" src="IMG_9189.jpeg" alt="Pocket Waffle">
 
-</section>
-
-<section class="intro" id="menu">
-
- <small>MADE FOR YOUR CRAVINGS</small>
-
- <h2>Our Delicious Menu</h2>
-
- <p>Pick a treat. Make your day sweeter.</p>
+ </div>
 
 </section>
 
-<div class="search-wrap">
+<section class="section" id="menu">
 
- <input class="search" id="search" placeholder="🔍  Search waffles, brownies, shakes..." autocomplete="off">
+ <div class="section-head">
 
-</div>
+  <div><h2>Explore Our Menu</h2><p>Something delicious for every mood.</p></div>
 
-<div class="cat-wrap"><nav class="categories" id="categories"></nav></div>
+  <span>🍫</span>
 
-<main class="menu" id="menuSections"></main>
+ </div>
+
+ <div class="search-wrap"><input class="search" id="search" placeholder="🔎  Search your favourite..." oninput="renderMenu()"></div>
+
+ <div class="categories" id="categories"></div>
+
+ <div class="menu-grid" id="menuGrid"></div>
+
+ <div class="note">✨ Menu prices and product photos will be added from the cafe's verified menu. Ask the counter for today's availability.</div>
+
+</section>
+
+</main>
 
 <footer>
 
- <div class="footer-brand">Pocket <span>Waffle.</span></div>
+ <img src="IMG_9189.jpeg" alt="Pocket Waffle">
 
- <p>A little bite of happiness ❤️</p>
+ <h2 style="font-family:'Playfair Display',serif">Pocket Waffle</h2>
 
- <p>Barwaha · Made with love</p>
+ <p>Sweet moments. Happy hearts. ♡</p>
+
+ <p>Barwaha, Madhya Pradesh</p>
+
+ <p style="margin-top:18px">© 2026 Pocket Waffle. All rights reserved.</p>
 
 </footer>
 
-<button class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+<a class="float-wa" href="https://wa.me/" target="_blank" rel="noopener">WhatsApp ↗</a>
 
 <script>
 
-const menu = {
+const categories = [
 
-"Round Waffles":[
+ "Round Waffles","Stick Waffles","Waffle Cake","Brownies","Pancakes",
 
-["Dark Chocolate",130],["White Chocolate",130],["Milk Chocolate",130],["Chocolate Overloaded",140],["Triple Chocolate",150],["KitKat Crunchy Dark",150],["KitKat Crunchy White",150],["Oreo Crispy White",150],["Oreo Crispy Dark",150],["Naked Nutella",160],["Crunchy KitKat Nutella",180],["Red Velvet",180],["Brownie Round Waffle",180],["Lotus Biscoff",200]
+ "Kunafa","Bowl Cake","Shakes","Sandwiches","Pizza","Burgers","Bites",
 
-],
+ "Maggie","Momos","Pasta","Cold Coffee","Ice Tea","Hot Beverages",
 
-"Stick Waffles":[
+ "Add-on Ice Cream"
 
-["Dark Chocolate",80],["White Chocolate",80],["Milk Chocolate",80],["Dark & White Chocolate",90],["Dark & Milk Chocolate",90],["White & Milk Chocolate",90],["White & Dark Chocolate",90],["Milk & White Chocolate",90],["Milk & Dark Chocolate",90],["Triple Chocolate",100],["Oreo White Chocolate",110],["Oreo Dark Chocolate",110],["KitKat White",110],["KitKat Dark",100],["KitKat Nutella",130],["Brownie Stick Waffle",130],["Coffee Stick Waffle",130],["Ferrero Rocher Stick Waffle",140],["Red Velvet Dark Chocolate",100],["Red Velvet White Chocolate",100],["Red Velvet Milk Chocolate",100],["Red Velvet Triple Chocolate",130]
+];
 
-],
+const icons = {
 
-"Waffle Cake":[
+ "Round Waffles":"🧇","Stick Waffles":"🍫","Waffle Cake":"🎂",
 
-["Triple Chocolate Waffle Cake (Single / Double Layer)","350 / 550"],["Oreo Waffle Cake (Single / Double Layer)","400 / 600"],["Kitkat Nutella Waffle Cake (Single / Double Layer)","450 / 650"],["Red Velvet Waffle Cake (Single / Double Layer)","450 / 650"],["Brownie Waffle Cake (Single / Double Layer)","400 / 600"]
+ "Brownies":"🍪","Pancakes":"🥞","Kunafa":"🍮","Bowl Cake":"🍰",
 
-],
+ "Shakes":"🥤","Sandwiches":"🥪","Pizza":"🍕","Burgers":"🍔",
 
-"Brownie":[
+ "Bites":"🍟","Maggie":"🍜","Momos":"🥟","Pasta":"🍝",
 
-["Choco Chips Brownie",90],["Dark Chocolate Brownie",120],["Milk Chocolate Brownie",120],["White Chocolate Brownie",120],["Triple Chocolate Brownie",140],["KitKat White Chocolate Brownie",150],["KitKat Dark Chocolate Brownie",150],["Oreo White Chocolate Brownie",150],["Oreo Dark Chocolate Brownie",150],["Kinder Joy White Chocolate Brownie",160],["Kinder Joy Dark Chocolate Brownie",160],["Belgium Nutella Brownie",170],["Belgium Nutella Rocher Brownie",180],["Biscoff Brownie",200]
+ "Cold Coffee":"🧋","Ice Tea":"🧊","Hot Beverages":"☕",
 
-],
-
-"Pancakes":[
-
-["Chocolate Mini Pancake (White / Dark - Any One)",100],["Kitkat Mini Pancake (White / Dark - Any One)",120],["Triple Chocolate Mini Pancake",120],["Nutella Mini Pancake",150],["Brownie Chocolate Mini Pancake (White / Dark - Any One)",150]
-
-],
-
-"Kunafa":[
-
-["Classic Traditional Kunafa",150],["Tender Coconut Kunafa",170],["Naughty Nutella Kunafa",180],["Shahi Rabdi Kunafa",170],["Blueberry Kunafa",180],["Strawberry Kunafa",180],["Half N Half Kunafa",200]
-
-],
-
-"Bowl Cake":[
-
-["Dark Chocolate",180],["White Chocolate",180],["Dark and White Chocolate",180],["Kit Kat White Chocolate",200],["Oreo Chocolate",200],["Triple Chocolate",220],["Nutella",220],["Biscoff",230]
-
-],
-
-"Shakes":[
-
-["Vanilla Shake",90],["Butterscotch Shake",100],["Strawberry Shake",100],["Kitkat Shake",120],["Oreo Shake",120],["Brownie Shake",140],["Lotus Biscoff Shake",160]
-
-],
-
-"Sandwiches":[
-
-["Corn Masala Sandwich",95],["Veg Onion Sandwich",95],["Chilli Chatpata Sandwich",110],["Bombay Kachha Sandwich",95],["Jam Sandwich",95],["Veggie Grill Sandwich",110],["Cheese Chutney Sandwich",100],["Chocolate Sandwich",110],["Corn Mayo Sandwich",110],["Paneer Takatak Sandwich",120],["Tandoori Sandwich",120],["Paneer Special Sandwich",140]
-
-],
-
-"Pizza":[
-
-["Margherita Pizza",140],["Veggie Delight Pizza",150],["Onion Pizza",150],["Sweet Corn Pizza",160],["Paneer Wrapped Pizza",160],["Extra Cheese Loaded Pizza",180],["Pocket Waffle Special Pizza",200]
-
-],
-
-"Burgers":[
-
-["Veg Burger",90],["Veg Cheese Burger",105],["Veg Paneer Burger",110],["Veg Cheese Paneer Burger",130],["Veg Salsa Burger",110],["Veg Mexican Burger",110],["Pocket Waffle Special Burger",140]
-
-],
-
-"Bites":[
-
-["Classic Fries",80],["Masala Fries",100],["Peri Peri Fries",100],["Cheesy Fries",120],["Veg Cheese Nuggets",100],["Veg Nuggets",90],["Nachos With Salsa Dip",100],["Veg Spring Rolls",150],["Cheese Spring Rolls",160],["Plain Garlic Bread",80],["Cheese Garlic Bread",100],["Pav Bhaji",80],["Indori Bhel",70]
-
-],
-
-"Maggie":[
-
-["Plain Maggie",70],["Double Masala Maggie",80],["Schezwan Maggie",90],["Corn Cheese Maggie",90],["Vegetable Maggie",95],["Cheese and Butter Maggie",105],["Tandoori Maggie",110],["Paneer Maggie",110],["Pocket Waffle Special Maggie",120]
-
-],
-
-"Momos":[
-
-["Cheese Corn Fried Momos",100],["Cheese Corn Steam Momos",100],["Cheese Steam Momos",90],["Paneer Steam Momos",90],["Cheese Fried Momos",90],["Paneer Fried Momos",90],["Veg Fried Momos",80],["Veg Steam Momos",80]
-
-],
-
-"Pasta":[
-
-["Red Sauce Pasta",160],["White Sauce Pasta",180]
-
-],
-
-"Cold Coffee":[
-
-["Classic Cold Coffee",100],["Choco Cold Coffee",120],["Cold Coffee With Ice Cream",130],["Brownie Cold Coffee",140]
-
-],
-
-"Ice Tea":[
-
-["Plain Ice Tea",80],["Lemon Ice Tea",90],["Classic Ice Tea",100]
-
-],
-
-"Hot Beverages":[
-
-["Masala Tea",30],["Hot Coffee",50],["Hot Chocolate",100]
-
-],
-
-"Add-on Ice Cream":[
-
-["Vanilla",30],["Chocolate",40]
-
-]
+ "Add-on Ice Cream":"🍨"
 
 };
 
-const nav=document.getElementById("categories");
+let activeCategory = "All";
 
-const sections=document.getElementById("menuSections");
+function renderCategories(){
 
-const search=document.getElementById("search");
+ const holder=document.getElementById("categories");
 
-let active="All";
+ holder.innerHTML="";
 
-function makeCategories(){
-
- const names=["All",...Object.keys(menu)];
-
- names.forEach(name=>{
+ ["All",...categories].forEach(cat=>{
 
   const b=document.createElement("button");
 
-  b.className="cat"+(name==="All"?" active":"");
+  b.className="cat"+(activeCategory===cat?" active":"");
 
-  b.textContent=name;
+  b.textContent=cat;
 
-  b.onclick=()=>{
+  b.onclick=()=>{activeCategory=cat;renderCategories();renderMenu()};
 
-   active=name;
-
-   document.querySelectorAll(".cat").forEach(x=>x.classList.toggle("active",x===b));
-
-   render();
-
-   if(name!=="All"){
-
-    document.getElementById("section-"+CSS.escape(name))?.scrollIntoView({behavior:"smooth",block:"start"});
-
-   }else{
-
-    document.getElementById("menuSections").scrollIntoView({behavior:"smooth"});
-
-   }
-
-  };
-
-  nav.appendChild(b);
+  holder.appendChild(b);
 
  });
 
 }
 
-function render(){
+function renderMenu(){
 
- const query=search.value.trim().toLowerCase();
+ const grid=document.getElementById("menuGrid");
 
- sections.innerHTML="";
+ const query=document.getElementById("search").value.toLowerCase().trim();
 
- let total=0;
+ const list=categories.filter(cat=>
 
- Object.entries(menu).forEach(([category,items])=>{
+  (activeCategory==="All"||activeCategory===cat)&&cat.toLowerCase().includes(query)
 
-  if(active!=="All"&&active!==category)return;
+ );
 
-  const filtered=items.filter(([name])=>name.toLowerCase().includes(query));
+ grid.innerHTML="";
 
-  if(!filtered.length)return;
+ if(!list.length){
 
-  total+=filtered.length;
+  grid.innerHTML='<div class="empty">No matching category found. Try another search.</div>';
 
-  const section=document.createElement("section");
-
-  section.className="section";
-
-  section.id="section-"+category;
-
-  const head=document.createElement("div");
-
-  head.className="section-head";
-
-  const title=document.createElement("h2");
-
-  title.textContent=category;
-
-  const count=document.createElement("span");
-
-  count.textContent=filtered.length+" TREATS";
-
-  head.append(title,count);
-
-  const grid=document.createElement("div");
-
-  grid.className="grid";
-
-  filtered.forEach(([name,price],i)=>{
-
-   const card=document.createElement("article");
-
-   card.className="card";
-
-   card.style.animationDelay=(i%8)*35+"ms";
-
-   const h=document.createElement("h3");
-
-   h.textContent=name;
-
-   const bottom=document.createElement("div");
-
-   bottom.className="card-bottom";
-
-   const p=document.createElement("span");
-
-   p.className="price";
-
-   p.textContent="₹"+price;
-
-   const tag=document.createElement("span");
-
-   tag.className="tag";
-
-   tag.textContent="FRESH";
-
-   bottom.append(p,tag);
-
-   card.append(h,bottom);
-
-   grid.append(card);
-
-  });
-
-  section.append(head,grid);
-
-  sections.append(section);
-
- });
-
- if(!total){
-
-  const empty=document.createElement("div");
-
-  empty.className="empty";
-
-  empty.textContent="No treats found. Try another search 🍫";
-
-  sections.append(empty);
+  return;
 
  }
 
+ list.forEach((cat,i)=>{
+
+  const card=document.createElement("article");
+
+  card.className="menu-card";
+
+  card.innerHTML=`
+
+   <div class="card-emoji">${icons[cat]||"🍽️"}</div>
+
+   <h3>${cat}</h3>
+
+   <p>Explore our ${cat.toLowerCase()} collection at Pocket Waffle.</p>
+
+   <div class="card-bottom">
+
+    <span class="price">Ask for price</span>
+
+    <button class="add" onclick="askMenu('${cat.replace(/'/g,"\\'")}')">Explore ↗</button>
+
+   </div>`;
+
+  grid.appendChild(card);
+
+ });
+
 }
 
-search.addEventListener("input",render);
+function askMenu(category){
 
-makeCategories();
+ alert("Please ask the Pocket Waffle counter for available "+category+" items and prices.");
 
-render();
+}
+
+renderCategories();
+
+renderMenu();
 
 </script>
 
