@@ -216,13 +216,22 @@ header{
 .search{max-width:530px;margin:25px auto}
 
 .search input{
-
- width:100%;padding:16px 20px;border-radius:30px;
-
- border:1px solid #e6d4c0;background:white;outline:none
-
+  width:100%;
+  padding:17px 22px;
+  border-radius:30px;
+  border:1px solid #e7d3bd;
+  background:#fff;
+  outline:none;
+  font:500 14px 'DM Sans',sans-serif;
+  color:var(--dark);
+  box-shadow:0 8px 25px #4724160c;
+  transition:.3s ease;
 }
 
+.search input:focus{
+  border-color:var(--orange);
+  box-shadow:0 0 0 4px #bd692f18,0 10px 25px #47241612;
+}
 .categories{
 
  display:flex;gap:10px;overflow-x:auto;padding:10px 0 20px;
