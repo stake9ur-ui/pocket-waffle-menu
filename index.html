@@ -440,6 +440,192 @@ footer p{color:#cbb5a5;font-size:13px}
 
 <button class="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL = "https://wufdshumwrkdtgncsmpm.supabase.co";
+
+const SUPABASE_KEY = "PASTE_EXISTING_ANON_KEY_HERE";
+
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const grid = document.getElementById("menuGrid");
+
+const cats = document.getElementById("categories");
+
+const search = document.getElementById("search");
+
+let products = [];
+
+let categoryList = [];
+
+let active = "All";
+
+function safe(value) {
+
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+
+    "&":"&amp;", "<":"&lt;", ">":"&gt;",
+
+    '"':"&quot;", "'":"&#39;"
+
+  }[c]));
+
+}
+
+function renderCategories() {
+
+  cats.innerHTML = "";
+
+  ["All", ...categoryList.map(c => c.name)].forEach(name => {
+
+    const button = document.createElement("button");
+
+    button.className = "cat" + (active === name ? " active" : "");
+
+    button.textContent = name;
+
+    button.onclick = () => {
+
+      active = name;
+
+      renderCategories();
+
+      renderMenu();
+
+    };
+
+    cats.appendChild(button);
+
+  });
+
+}
+
+function renderMenu() {
+
+  const term = search.value.trim().toLowerCase();
+
+  const filtered = products.filter(p =>
+
+    (active === "All" || (p.categories?.name || "Uncategorised") === active) &&
+
+    (
+
+      (p.name || "").toLowerCase().includes(term) ||
+
+      (p.categories?.name || "").toLowerCase().includes(term) ||
+
+      (p.description || "").toLowerCase().includes(term)
+
+    )
+
+  );
+
+  grid.innerHTML = "";
+
+  if (!filtered.length) {
+
+    grid.innerHTML = '<div class="empty">No menu items found.</div>';
+
+    return;
+
+  }
+
+  filtered.forEach(p => {
+
+    const available = p.is_available !== false;
+
+    const photo = p.image_url
+
+      ? `<img src="${safe(p.image_url)}" alt="${safe(p.name)}" loading="lazy">`
+
+      : '<span class="photo-placeholder">Photo coming soon</span>';
+
+    const card = document.createElement("article");
+
+    card.className = "menu-card";
+
+    card.innerHTML = `
+
+      <div class="product-photo">${photo}</div>
+
+      <div class="card-category">${safe(p.categories?.name || "POCKET WAFFLE")}</div>
+
+      <h3>${safe(p.name)}</h3>
+
+      <p class="description">${safe(p.description || "Freshly made with love.")}</p>
+
+      <div class="price-row">
+
+        <span class="price">₹${Number(p.price || 0).toLocaleString("en-IN")}</span>
+
+        <span class="status ${available ? "" : "sold"}">
+
+          ${available ? "● Available" : "● Sold out"}
+
+        </span>
+
+      </div>
+
+      <a class="order" href="https://wa.me/?text=${encodeURIComponent("Hi Pocket Waffle, I want to enquire about " + p.name)}" target="_blank" rel="noopener">
+
+        ENQUIRE / ORDER ↗
+
+      </a>
+
+    `;
+
+    grid.appendChild(card);
+
+  });
+
+}
+
+async function loadMenu() {
+
+  try {
+
+    const [c, p] = await Promise.all([
+
+      db.from("categories").select("*").order("sort_order").order("name"),
+
+      db.from("menu_items").select("*, categories(name)").order("sort_order").order("name")
+
+    ]);
+
+    if (c.error) throw c.error;
+
+    if (p.error) throw p.error;
+
+    categoryList = c.data || [];
+
+    products = p.data || [];
+
+    renderCategories();
+
+    renderMenu();
+
+  } catch (error) {
+
+    console.error(error);
+
+    grid.innerHTML = '<div class="error">Menu load nahi hua. Please refresh.</div>';
+
+  }
+
+}
+
+search.addEventListener("input", renderMenu);
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+loadMenu();
+
+</script>
+
 </body>
 
 </html>
