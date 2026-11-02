@@ -241,21 +241,28 @@ header{
 }
 
 .cat{
-
- white-space:nowrap;padding:11px 18px;border-radius:30px;
-
- border:1px solid #eadbca;background:white;
-
- font-weight:700;cursor:pointer
-
+  white-space:nowrap;
+  padding:12px 21px;
+  border-radius:30px;
+  border:1px solid #eadbca;
+  background:#fff;
+  color:var(--brown);
+  font:700 13px 'DM Sans',sans-serif;
+  cursor:pointer;
+  transition:all .3s ease;
+  box-shadow:0 4px 12px #47241608;
 }
 
-.cat.active{background:var(--dark);color:white}
+.cat:hover{
+  border-color:var(--orange);
+  transform:translateY(-2px);
+}
 
-.menu-grid{
-
- display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px
-
+.cat.active{
+  background:var(--dark);
+  color:white;
+  border-color:var(--dark);
+  box-shadow:0 7px 18px #47241625;
 }
 
 .menu-card{
