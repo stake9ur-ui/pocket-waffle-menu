@@ -359,23 +359,32 @@ header{
 }
 
 footer{
-
- background:var(--dark);color:white;text-align:center;padding:40px 20px
-
+  background:linear-gradient(145deg,#24150f,#4b291c);
+  color:white;
+  text-align:center;
+  padding:60px 20px 35px;
+  border-top:4px solid #bd692f;
 }
 
-footer img{width:65px;height:65px;object-fit:contain;border-radius:50%;background:white;padding:5px}
+footer img{
+  width:75px;
+  height:75px;
+  object-fit:cover;
+  border-radius:20px;
+  background:white;
+  padding:5px;
+  box-shadow:0 10px 25px #0003;
+}
 
-footer p{color:#cbb5a5;font-size:13px}
+footer h2{
+  font:700 30px 'Playfair Display',serif;
+  margin:18px 0 10px;
+}
 
-.top{
-
- position:fixed;bottom:20px;right:18px;width:45px;height:45px;
-
- border:0;border-radius:50%;background:#a95425;color:white;
-
- font-size:20px;cursor:pointer
-
+footer p{
+  color:#d9c1ad;
+  font-size:13px;
+  line-height:1.8;
 }
 
 @keyframes appear{
