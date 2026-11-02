@@ -240,7 +240,20 @@ header{
   from{transform:translateY(-8px) rotate(-3deg);}
   to{transform:translateY(12px) rotate(3deg);}
 }
-@keyframes spin{
+.chocolate-drizzle{
+  position:absolute;
+  z-index:3;
+  inset:0;
+  border-radius:18px;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse,#4b1c12 0 7px,transparent 8px) 25% 38%/100% 100% no-repeat,
+    linear-gradient(105deg,transparent 0 18%,#572116 19% 23%,transparent 24% 100%),
+    linear-gradient(75deg,transparent 0 48%,#4b1c12 49% 54%,transparent 55% 100%),
+    linear-gradient(110deg,transparent 0 75%,#642819 76% 80%,transparent 81% 100%);
+  opacity:.9;
+  filter:drop-shadow(0 3px 3px #35130988);
+}@keyframes spin{
   to{transform:rotate(360deg)}
 }
 
