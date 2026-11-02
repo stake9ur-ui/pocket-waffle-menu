@@ -185,7 +185,20 @@ header{
     15px 65px 0 -20px #4b1c12;
   filter:drop-shadow(0 5px 4px #35130966);
 }
-
+.waffle{
+  isolation:isolate;
+}
+.waffle .chocolate-drizzle{
+  display:none;
+}
+.waffle:before{
+  background:
+    radial-gradient(ellipse at 30% 25%,#a65b3c 0%,#71301d 45%,#3b170f 100%);
+  box-shadow:
+    -105px 90px 0 -8px #572419,
+    -35px 125px 0 -15px #71301c,
+    15px 65px 0 -20px #4b1c12;
+}
 .hero-art:after{
   content:"";
   position:absolute;
