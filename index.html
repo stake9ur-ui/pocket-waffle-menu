@@ -103,79 +103,102 @@ header{
 }
 
 .hero-art{
+  height:430px;
+  display:grid;
+  place-items:center;
+  position:relative;
+  perspective:1200px;
+  isolation:isolate;
+}
 
- height:390px;display:grid;place-items:center;
-
- position:relative;perspective:1000px
-
+.hero-art:before{
+  content:"";
+  position:absolute;
+  width:330px;
+  height:330px;
+  border-radius:50%;
+  background:radial-gradient(circle,#f5d7ad 0%,#f9e9d5 48%,transparent 72%);
+  filter:blur(8px);
+  z-index:-1;
 }
 
 .orbit{
-
- position:absolute;width:310px;height:310px;
-
- border:1px dashed #d5a77c;border-radius:50%;
-
- animation:spin 22s linear infinite
-
+  position:absolute;
+  width:340px;
+  height:340px;
+  border:1px solid #d8a879;
+  border-radius:50%;
+  box-shadow:0 0 35px #d8a87933;
+  animation:spin 24s linear infinite;
 }
 
 .waffle{
+  width:265px;
+  height:225px;
+  position:relative;
+  border-radius:30px;
+  background:
+    repeating-linear-gradient(0deg,transparent 0 24px,#9b5428 25px 31px),
+    repeating-linear-gradient(90deg,#f4c477 0 24px,#9b5428 25px 31px);
+  border:12px solid #bd702f;
+  box-shadow:
+    inset 0 0 0 5px #ffe0a1,
+    inset 0 -12px 20px #a65b2b55,
+    0 18px 0 #91451f,
+    0 35px 30px #58301e55;
+  transform:rotateX(55deg) rotateZ(-25deg);
+  animation:float 5s ease-in-out infinite;
+}
 
- width:260px;height:225px;position:relative;
-
- border-radius:28px;
-
- background:
-
- repeating-linear-gradient(0deg,transparent 0 25px,#a45b2b 26px 31px),
-
- repeating-linear-gradient(90deg,#e9ae5e 0 25px,#a45b2b 26px 31px);
-
- border:12px solid #c77a36;
-
- box-shadow:inset 0 0 0 5px #f5c77b,
-
- 0 25px 0 #984a24,0 48px 35px #58301e55;
-
- transform:rotateX(55deg) rotateZ(-25deg);
-
- animation:float 5s ease-in-out infinite
-
+.waffle:before{
+  content:"";
+  position:absolute;
+  width:85px;
+  height:55px;
+  top:18px;
+  right:20px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#542015,#9b4726);
+  box-shadow:
+    -105px 90px 0 -8px #572419,
+    -35px 125px 0 -15px #71301c;
 }
 
 .waffle:after{
-
- content:"";position:absolute;width:90px;height:48px;
-
- background:linear-gradient(135deg,#421b12,#9a4724);
-
- border-radius:50%;top:25px;right:25px;
-
- box-shadow:-100px 95px 0 -10px #572419
-
+  content:"";
+  position:absolute;
+  inset:-12px;
+  border-radius:30px;
+  background:linear-gradient(125deg,#ffffff55,transparent 40%);
+  pointer-events:none;
 }
 
 .hero-tag{
-
- position:absolute;bottom:10px;right:0;background:white;
-
- padding:14px 18px;border-radius:18px;
-
- font-weight:800;box-shadow:0 12px 30px #0002
-
+  position:absolute;
+  bottom:5px;
+  right:0;
+  background:white;
+  padding:15px 20px;
+  border:1px solid #f0dfcb;
+  border-radius:18px;
+  font-weight:800;
+  box-shadow:0 15px 35px #0002;
+  animation:tagFloat 4s ease-in-out infinite;
 }
 
-@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
 
 @keyframes float{
-
- 0%,100%{translate:0 0}
-
- 50%{translate:0 -15px}
-
+  0%,100%{translate:0 0}
+  50%{translate:0 -18px}
 }
 
+@keyframes tagFloat{
+  0%,100%{translate:0 0}
+  50%{translate:0 -8px}
+}
 .section{max-width:1200px;margin:auto;padding:40px 5% 75px}
 
 .section-head{text-align:center;margin-bottom:25px}
